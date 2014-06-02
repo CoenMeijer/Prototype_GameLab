@@ -10,7 +10,7 @@ public class KeyLock : InteractiveObjects {
 		if(key != null)
 		{
 			key.GetComponent<KeyPickup>().turnOnOff(true);
-			key.transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
+			key.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 		}
 		else{
 			Debug.Log("No key");
