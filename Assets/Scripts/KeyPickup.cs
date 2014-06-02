@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KeyPickup : MonoBehaviour {
+public class KeyPickup : InteractiveObjects {
 
-	void OnTriggerEnter()
+
+	protected override void effect()
 	{
-		Debug.Log("gmrigore");
+		GameObject.FindWithTag(TagsStatics.playerTag).GetComponent<Keyholder>().addKey(gameObject);
+		turnOnOff(false);
+	}
+
+	public void turnOnOff(bool OnOff)
+	{
+		collider.enabled = OnOff;
+		renderer.enabled = OnOff;
 	}
 }
