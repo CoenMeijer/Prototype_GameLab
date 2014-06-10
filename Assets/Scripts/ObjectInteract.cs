@@ -8,7 +8,7 @@ public class ObjectInteract : MonoBehaviour {
 
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.G))
+		if(Input.GetButtonDown("Fire1"))
 		{
 			Vector3 fwd = transform.TransformDirection(Vector3.forward);
 			RaycastHit hit;
