@@ -19,7 +19,6 @@ public class ObjectInteract : MonoBehaviour {
 			{
 				if(hit.collider.gameObject.tag == "IntObj")
 				{
-					Debug.Log("IntObj hit");
 					hit.collider.gameObject.GetComponent<InteractiveObjects>().interact();
 				}
 			}

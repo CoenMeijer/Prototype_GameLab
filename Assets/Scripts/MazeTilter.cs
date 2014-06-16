@@ -6,6 +6,8 @@ public class MazeTilter : MonoBehaviour {
 	private GameObject maze;
 	private bool turning;
 	private float startTime;
+	private int intDirect;
+	private Vector3 turnAxis;
 
 	public float turnTime;
 	public Transform turnPoint;
@@ -18,47 +20,62 @@ public class MazeTilter : MonoBehaviour {
 		transform.DetachChildren();
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if(!turning)
 		{
 			if(Input.GetButtonDown("GiantX"))
 			{
 				turning = true;
-				StartCoroutine(rotateVar(new Vector3(90,0,0),Input.GetAxis("GiantX")));
+				startRotate(new Vector3(90,0,0),Input.GetAxis("GiantX"));
 			}
 			else if(Input.GetButtonDown("GiantY"))
 			{
 				turning = true;
-				StartCoroutine(rotateVar(new Vector3(0,90,0),Input.GetAxis("GiantY")));
+				startRotate(new Vector3(0,90,0),Input.GetAxis("GiantY"));
 			}
 			else if(Input.GetButtonDown("GiantZ"))
 			{
 				turning = true;
-				StartCoroutine(rotateVar(new Vector3(0,0,90),Input.GetAxis("GiantZ")));
+				startRotate(new Vector3(0,0,90),Input.GetAxis("GiantZ"));
+			}
+		}
+		else
+		{
+			float timeLerp = (Time.time-startTime)/turnTime;
+			if(timeLerp < 1)
+			{
+				transform.Rotate(((Vector3.Lerp(Vector3.zero,turnAxis,timeLerp))*intDirect)-transform.eulerAngles);
+			}
+			else
+			{
+				turning = false;
+				transform.eulerAngles = turnAxis*intDirect;
+				transform.DetachChildren();
+				transform.Rotate(transform.rotation.eulerAngles*-1);
 			}
 		}
 	}
 
-	IEnumerator rotateVar(Vector3 axis, float direct)
-	{
-		Debug.Log(axis + "   " + direct);
-		int intDirect = (int)(direct/Mathf.Abs(direct));
-		startTime = Time.time;
-		int t = (int)turnTime*30;
-		transform.position = turnPoint.position;
-		maze.transform.parent = transform;
 
-		for(int i=0; i<t;i++)
+
+	private void startRotate(Vector3 axis, float direct)
+	{
+		if(direct != 0)
 		{
-			transform.Rotate((Vector3.Lerp(Vector3.zero,axis,(Time.time-startTime)/turnTime))*intDirect - transform.eulerAngles);
-			yield return new WaitForSeconds(0.033f);
+			GetComponent<AudioSource>().Play();
+			turnAxis = axis;
+			intDirect = (int)(direct/Mathf.Abs(direct));
+			startTime = Time.time;
+			transform.position = turnPoint.position;
+			maze.transform.parent = transform;
+
 
 		}
-		transform.eulerAngles = axis*intDirect;
-		transform.DetachChildren();
-		transform.Rotate(transform.rotation.eulerAngles*-1);
-		turning = false;
+		else
+		{
+			turning = false;
+		}
 	}
 
 }

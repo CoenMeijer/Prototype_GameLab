@@ -8,6 +8,7 @@ public class KeyPickup : InteractiveObjects {
 	{
 		GameObject.FindWithTag(TagsStatics.playerTag).GetComponent<Keyholder>().addKey(gameObject);
 		turnOnOff(false);
+		GetComponent<AudioSource>().Play();
 	}
 
 	public void turnOnOff(bool OnOff)
