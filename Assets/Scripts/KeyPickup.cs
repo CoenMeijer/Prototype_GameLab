@@ -15,7 +15,5 @@ public class KeyPickup : InteractiveObjects {
 	{
 		collider.enabled = OnOff;
 		renderer.enabled = OnOff;
-		transform.GetChild(0).gameObject.SetActive(OnOff);
-		transform.GetChild(1).gameObject.SetActive(OnOff);
 	}
 }

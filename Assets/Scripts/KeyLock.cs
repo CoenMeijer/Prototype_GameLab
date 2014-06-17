@@ -41,8 +41,6 @@ public class KeyLock : InteractiveObjects {
 				key.GetComponent<KeyPickup>().turnOnOff(true);
 				key.transform.position = receivePoint.position;
 				key.transform.parent = transform;
-				key.transform.localScale = (key.transform.localScale*0.7f);
-				key.GetComponent<KeyRotate>().rotateStop();
 				doorScript.removeLock();
 				GetComponent<AudioSource>().Play();
 

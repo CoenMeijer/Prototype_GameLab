@@ -23,7 +23,7 @@ public class EndDoor : MonoBehaviour {
 
 	IEnumerator endDelay()
 	{
-		yield return new WaitForSeconds(4f);
+		yield return new WaitForSeconds(2.5f);
 		Application.LoadLevel(Application.loadedLevel+1);
 	}
 }
